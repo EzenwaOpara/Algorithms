@@ -1,19 +1,21 @@
-import lib.StdOut;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
-        String benjamin = mystery("BENJAMIN");
-        System.out.println(benjamin);
 
 
+        Map<Integer, Long> map = new HashMap<>();
+        int n = 50;
+        long sum = fib(n, map);
+        System.out.println("Sum of first " + n + " fib numbers is: " + sum);
     }
 
-    public static String mystery(String s) {
-        int N = s.length();
-        if (N <= 1) return s;
-        String a = s.substring(0, N / 2);
-        String b = s.substring(N / 2, N);
-        return mystery(b) + mystery(a);
+    private static long fib(int i, Map<Integer, Long> map) {
+        if (map.containsKey(i)) return map.get(i);
+        if (i <= 2) return 1;
+        map.put(i, fib(i - 1, map) + fib(i - 2, map));
+        return map.get(i);
     }
 }
